@@ -7,7 +7,7 @@ source.include_exts = py,png,jpg,jpeg,gif,bmp,kv,atlas,wav,mp3,ogg,flac,m4a,mp4,
 version.name = 1.0.0 BETA
 version.code = 1
 version.filename = %(source.dir)s/main.py
-version.regex = __version__ = ['"](.*)['"]
+version.regex = __version__ = "(.*)"
 requirements = python3,pygame-ce
 orientation = landscape
 fullscreen = 1
