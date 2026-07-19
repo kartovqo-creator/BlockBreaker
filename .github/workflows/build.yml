@@ -25,10 +25,14 @@ jobs:
         sudo apt-get install -y git zip unzip python3-pip autoconf libtool pkg-config zlib1g-dev libncurses5-dev libssl-dev cmake libffi-dev libltdl-dev aidl
         pip3 install --user --upgrade buildozer cython virtualenv
 
-    - name: Accept Android Licenses
+    - name: Force Accept Android Licenses Everywhere
       run: |
-        # Автоматично приемане на абсолютно всички лицензи на Android SDK
+        # Приемаме ги в глобалното SDK
         yes | $ANDROID_HOME/cmdline-tools/latest/bin/sdkmanager --licenses
+        
+        # Създаваме предварително папките на Buildozer и му копираме одобрените лицензи наготово
+        mkdir -p /home/runner/.buildozer/android/platform/android-sdk/licenses
+        cp -r $ANDROID_HOME/licenses/* /home/runner/.buildozer/android/platform/android-sdk/licenses/ || true
 
     - name: Build with Buildozer
       run: |
