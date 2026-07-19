@@ -9,3 +9,5 @@ requirements = python3,pygame
 orientation = landscape
 fullscreen = 1
 android.archs = arm64-v8a
+android.sdk = 34
+android.build_tools_version = 34.0.0
