@@ -13,11 +13,31 @@ jobs:
     - name: Checkout code
       uses: actions/checkout@v4
 
-    - name: Buildozer Action
-      uses: kivy/buildozer-action@v1
+    - name: Setup Java
+      uses: actions/setup-java@v4
       with:
-        workdir: BlockBreaker
-        buildozer_version: stable
+        distribution: 'temurin'
+        java-version: '17'
+
+    - name: Setup Android SDK
+      uses: android-actions/setup-android@v3
+      with:
+        log-accepted-licenses: false
+
+    - name: Install Android Build Tools
+      run: |
+        sdkmanager "build-tools;34.0.0" "platforms;android-34" "platform-tools"
+
+    - name: Install Buildozer Dependencies
+      run: |
+        sudo apt-get update
+        sudo apt-get install -y git zip unzip python3-pip autoconf libtool pkg-config zlib1g-dev libncurses5-dev libssl-dev cmake libffi-dev libltdl-dev aidl
+        pip3 install --user --upgrade buildozer cython virtualenv
+
+    - name: Build with Buildozer
+      run: |
+        cd BlockBreaker
+        ~/.local/bin/buildozer android debug
 
     - name: Upload APK
       uses: actions/upload-artifact@v4
