@@ -1,4 +1,3 @@
-__version__ = "1.0.0 BETA"
 import pygame
 import sys
 import os
